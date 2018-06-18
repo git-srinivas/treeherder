@@ -209,8 +209,6 @@ CELERY_QUEUES = [
           routing_key='crossreference_error_lines.failures'),
     Queue('log_autoclassify', Exchange('default'), routing_key='autoclassify.normal'),
     Queue('log_autoclassify_fail', Exchange('default'), routing_key='autoclassify.failures'),
-    # Queue for mirroring the failure classification activity to Elasticsearch.
-    Queue('classification_mirroring', Exchange('default'), routing_key='classification_mirroring'),
     Queue('publish_to_pulse', Exchange('default'), routing_key='publish_to_pulse'),
     Queue('pushlog', Exchange('default'), routing_key='pushlog'),
     Queue('buildapi_pending', Exchange('default'), routing_key='buildapi_pending'),
@@ -408,10 +406,6 @@ BUGFILER_API_KEY = env("BUGZILLA_API_KEY", default=None)
 # Auth0 setup
 AUTH0_DOMAIN = env('AUTH0_DOMAIN', default="auth.mozilla.auth0.com")
 AUTH0_CLIENTID = env('AUTH0_CLIENTID', default="q8fZZFfGEmSB2c5uSI8hOkKdDGXnlo5z")
-
-ORANGEFACTOR_SUBMISSION_URL = "https://brasstacks.mozilla.com/orangefactor/api/saveclassification"
-ORANGEFACTOR_HAWK_ID = "treeherder"
-ORANGEFACTOR_HAWK_KEY = env("ORANGEFACTOR_HAWK_KEY", default=None)
 
 # this setting allows requests from any host
 CORS_ORIGIN_ALLOW_ALL = True
