@@ -1,6 +1,6 @@
 import datetime
 
-from django.conf import settings
+import environ
 from django.core.management.base import BaseCommand
 
 from treeherder.model.models import (Job,
@@ -9,6 +9,16 @@ from treeherder.model.models import (Job,
                                      Machine,
                                      Repository)
 from treeherder.perf.models import PerformanceDatum
+
+env = environ.Env()
+
+# Default to retaining data for ~4 months.
+DATA_CYCLE_DAYS = env.int("DATA_CYCLE_DAYS", default=120)
+
+# Determines the number of jobs we try to delete per iteration when
+# cycling data
+DATA_CYCLE_CHUNK_SIZE = env.int("DATA_CYCLE_CHUNK_SIZE", default=100)
+DATA_CYCLE_SLEEP_TIME = env.int("DATA_CYCLE_SLEEP_TIME", default=0)
 
 
 class Command(BaseCommand):
@@ -26,7 +36,7 @@ class Command(BaseCommand):
             '--days',
             action='store',
             dest='days',
-            default=settings.DATA_CYCLE_DAYS,
+            default=DATA_CYCLE_DAYS,
             type=int,
             help='Data cycle interval expressed in days'
         )
@@ -34,7 +44,7 @@ class Command(BaseCommand):
             '--chunk-size',
             action='store',
             dest='chunk_size',
-            default=settings.DATA_CYCLE_CHUNK_SIZE,
+            default=DATA_CYCLE_CHUNK_SIZE,
             type=int,
             help=('Define the size of the chunks '
                   'Split the job deletes into chunks of this size')
@@ -43,7 +53,7 @@ class Command(BaseCommand):
             '--sleep-time',
             action='store',
             dest='sleep_time',
-            default=settings.DATA_CYCLE_SLEEP_TIME,
+            default=DATA_CYCLE_SLEEP_TIME,
             type=int,
             help='How many seconds to pause between each query'
         )
