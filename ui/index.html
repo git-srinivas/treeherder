@@ -24,13 +24,13 @@
                 </ng-include>
             </div>
             <ng-include src="'partials/main/thTreeherderUpdateBar.html'"></ng-include>
-            <ng-include src="'partials/main/thActiveFiltersBar.html'"></ng-include>
             <job-view
               revision="revision"
               current-repo="currentRepo"
               repo-name="repoName"
               selected-job="selectedJob"
               user="user"
+              is-field-filter-visible="isFieldFilterVisible"
             />
         </div>
 
