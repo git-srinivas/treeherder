@@ -35,7 +35,7 @@ class JobView extends React.Component {
       this.toggleFieldFilterVisible();
     });
 
-    this.history.listen((location, action) => {
+    this.history.listen(() => {
       this.setState({
         filterBarFilters: [
          ...this.thJobFilters.getNonFieldFiltersArray(),
