@@ -36,7 +36,6 @@ class JobView extends React.Component {
     });
 
     this.history.listen((location, action) => {
-      console.log('history change', location, action);
       this.setState({
         filterBarFilters: [
          ...this.thJobFilters.getNonFieldFiltersArray(),

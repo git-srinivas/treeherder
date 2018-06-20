@@ -428,7 +428,6 @@ treeherder.factory('thJobFilters', [
                     });
                 }
             });
-            console.log('field filters', fieldFilters);
             return fieldFilters;
         }
 
